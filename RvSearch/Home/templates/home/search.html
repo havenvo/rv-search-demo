@@ -1,0 +1,380 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css"
+        integrity="sha512-mSYUmp1HYZDFaVKK//63EcZq4iFWFjxSL+Z3T/aCt4IO9Cejm03q3NKKYN6pFQzY0SBOr8h+eCIAZHPXcpZaNw=="
+        crossorigin="anonymous"
+/>
+
+<section class="section bg-dark">
+    <div class="container-fluid bg-light">
+        <div class="row">
+            <div class="col-3 bg-white m-2">
+                <div>
+                    <div>
+                        <h6 class="mt-3">Service type</h6>
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        <div class="dropdown">
+                            <button
+                                    class="btn btn-large btn-block btn-secondary dropdown-toggle"
+                                    type="button"
+                                    id="dropdownMenuButton"
+                                    data-toggle="dropdown"
+                                    aria-haspopup="true"
+                                    aria-expanded="true"
+                            >
+                                <i class="far fa-hand-spock"></i>
+                                Pick a service
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item" href="#">
+                                    <i class="fas fa-truck-loading"></i>
+                                    Boarding</a>
+                                <div class="data" hidden>boarding</div>
+                                <a class="dropdown-item" href="#">
+                                    <i class="fas fa-home"></i>
+                                    House Sitting</a>
+                                <div class="data" hidden>house-sitting</div>
+                                <a class="dropdown-item" href="#">
+                                    <i class="fas fa-cookie-bite"></i>
+                                    Drop-In Visits</a>
+                                <div class="data" hidden>drop_in</div>
+                                <a class="dropdown-item" href="#">
+                                    <i class="fas fa-walking"></i>
+                                    Dog Walking</a>
+                                <div class="data" hidden>dog-walking</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="column">
+                    <h6 class="mt-3">Boarding near</h6>
+                    <input id="zip-code"
+                           type="text"
+                           class="form-control"
+                           placeholder="Zip Code or Address"
+                    />
+                </div>
+                <div class="column">
+                    <h6 class="mt-3">Dates</h6>
+                    <div class="input-daterange input-group" id="datepicker">
+                        <input type="text" class="input-sm form-control" name="start"/>
+
+                        <input type="text" class="input-sm form-control" name="end"/>
+                    </div>
+                </div>
+                <div class="column">
+                    <h6 class="mt-3">Pet type(s)</h6>
+                    <div class="row">
+                        <div class="form-check ml-3">
+                            <input type="checkbox" class="form-check-input" id="chk-dog"/>
+                            <label class="form-check-label" for="chk-dog">Dog</label>
+                        </div>
+                        <div class="form-check ml-3">
+                            <input type="checkbox" class="form-check-input" id="chk-cat"/>
+                            <label class="form-check-label" for="chk-cat">Cat</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="column">
+                    <h6 class="mt-3">Dog size</h6>
+                    <div
+                            class="btn-group btn-group-toggle d-flex justify-content-center"
+                            data-toggle="buttons"
+                    >
+                        <label class="form-control btn btn-secondary active">
+                            <input
+                                    type="checkbox"
+                                    name="options"
+                                    id="option1"
+                                    autocomplete="off"
+                            />0-15
+                        </label>
+                        <label class="form-control btn btn-secondary">
+                            <input
+                                    type="checkbox"
+                                    name="options"
+                                    id="option2"
+                                    autocomplete="off"
+                            />16-40
+                        </label>
+                        <label class="form-control btn btn-secondary">
+                            <input
+                                    type="checkbox"
+                                    name="options"
+                                    id="option3"
+                                    autocomplete="off"
+                            />41-100
+                        </label>
+                        <label class="form-control btn btn-secondary">
+                            <input
+                                    type="checkbox"
+                                    name="options"
+                                    id="option4"
+                                    autocomplete="off"
+                                    checked
+                            />101+
+                        </label>
+                    </div>
+                </div>
+                <div class="column">
+                    <div>
+                        <h6 class="mt-3">How many pets?</h6>
+                    </div>
+                    <div id="btn-group-petnum" class="btn-group btn-group-toggle d-flex justify-content-center"
+                         data-toggle="buttons">
+                        <label class="col-12 btn btn-secondary active">
+                            <input
+                                    value="1"
+                                    type="radio"
+                                    name="options"
+                                    id="petnum-op1"
+                                    autocomplete="off"
+                                    checked
+                            />1
+                        </label>
+                        <label class="col-12 btn btn-secondary">
+                            <input
+                                    value="2"
+                                    type="radio"
+                                    name="options"
+                                    id="petnum-op2"
+                                    autocomplete="off"
+                            />2
+                        </label>
+                        <label class="col-12 btn btn-secondary">
+                            <input
+                                    value="3+"
+                                    type="radio"
+                                    name="options"
+                                    id="petnum-op3"
+                                    autocomplete="off"
+                            />3+
+                        </label>
+                    </div>
+                </div>
+                <div style="height: 250px;" class="column mt-3">More filters</div>
+            </div>
+            <div class="col-5 bg-white my-2 px-2">
+                <div class="spinner-border text-secondary" role="status">
+                    <span class="sr-only">Loading...</span>
+                </div>
+                <div id="result-container">
+                    <!--Search result will be place here as inner html-->
+                </div>
+            </div>
+
+            <div class="col mx-0 px-0 my-2">
+                <img style="width:100%; height:100%; object-fit:cover;"
+                     src="{% static 'Home/img/map-placeholder.png' %}"
+                     alt="Map placeholder">
+            </div>
+        </div>
+    </div>
+    <div id="modal" class="modal">
+        <div class="modal-background"></div>
+        <div class="modal-content">
+            <div class="box">
+                <article class="media">
+                    <div class="media-left">
+                        <figure class="image is-64x64">
+                            <img
+                                    src="https://bulma.io/images/placeholders/128x128.png"
+                                    alt="Image"
+                            />
+                        </figure>
+                    </div>
+                    <div class="media-content">
+                        <div class="content">
+                            <p>
+                                <strong>John Smith</strong> <small>@johnsmith</small>
+                                <small>31m</small>
+                                <br/>
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean
+                                efficitur sit amet massa fringilla egestas. Nullam condimentum
+                                luctus turpis.
+                            </p>
+                        </div>
+                        <nav class="level is-mobile">
+                            <div class="level-left">
+                                <a class="level-item" aria-label="retweet">
+                  <span class="icon is-small">
+                    <svg
+                            class="svg-inline--fa fa-retweet fa-w-20"
+                            aria-hidden="true"
+                            data-prefix="fas"
+                            data-icon="retweet"
+                            role="img"
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 640 512"
+                            data-fa-i2svg=""
+                    >
+                      <path
+                              fill="currentColor"
+                              d="M629.657 343.598L528.971 444.284c-9.373 9.372-24.568 9.372-33.941 0L394.343 343.598c-9.373-9.373-9.373-24.569 0-33.941l10.823-10.823c9.562-9.562 25.133-9.34 34.419.492L480 342.118V160H292.451a24.005 24.005 0 0 1-16.971-7.029l-16-16C244.361 121.851 255.069 96 276.451 96H520c13.255 0 24 10.745 24 24v222.118l40.416-42.792c9.285-9.831 24.856-10.054 34.419-.492l10.823 10.823c9.372 9.372 9.372 24.569-.001 33.941zm-265.138 15.431A23.999 23.999 0 0 0 347.548 352H160V169.881l40.416 42.792c9.286 9.831 24.856 10.054 34.419.491l10.822-10.822c9.373-9.373 9.373-24.569 0-33.941L144.971 67.716c-9.373-9.373-24.569-9.373-33.941 0L10.343 168.402c-9.373 9.373-9.373 24.569 0 33.941l10.822 10.822c9.562 9.562 25.133 9.34 34.419-.491L96 169.881V392c0 13.255 10.745 24 24 24h243.549c21.382 0 32.09-25.851 16.971-40.971l-16.001-16z"
+                      ></path>
+                    </svg>
+                      <!-- <i class="fas fa-retweet" aria-hidden="true"></i> -->
+                  </span>
+                                </a>
+                                <a class="level-item" aria-label="like">
+                  <span class="icon is-small">
+                    <svg
+                            class="svg-inline--fa fa-heart fa-w-16"
+                            aria-hidden="true"
+                            data-prefix="fas"
+                            data-icon="heart"
+                            role="img"
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 512 512"
+                            data-fa-i2svg=""
+                    >
+                      <path
+                              fill="currentColor"
+                              d="M462.3 62.6C407.5 15.9 326 24.3 275.7 76.2L256 96.5l-19.7-20.3C186.1 24.3 104.5 15.9 49.7 62.6c-62.8 53.6-66.1 149.8-9.9 207.9l193.5 199.8c12.5 12.9 32.8 12.9 45.3 0l193.5-199.8c56.3-58.1 53-154.3-9.8-207.9z"
+                      ></path>
+                    </svg>
+                      <!-- <i class="fas fa-heart" aria-hidden="true"></i> -->
+                  </span>
+                                </a>
+                            </div>
+                        </nav>
+                    </div>
+                </article>
+            </div>
+        </div>
+        <button class="modal-close is-large" aria-label="close"></button>
+    </div>
+</section>
+{% endblock %}
+
+{% block js_block %}
+<script
+        src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"
+        integrity="sha512-T/tUfKSV1bihCnd+MxKD0Hm1uBBroVYBOYSk1knyvQ9VyZJpc/ALb4P0r6ubwVPSGB2GvjeoMAJJImBG12TiaQ=="
+        crossorigin="anonymous"
+></script>
+<script>
+  var petTypeDict = {};
+  var queryDict = {
+    pet_num: 1,
+    pet_type: "",
+    service_type: "boarding",
+    zip_code: "",
+    address: "",
+    start_date: "",
+    end_date: "",
+    dog_size: "0-15",
+  };
+
+  function triggerSearch(queryDict) {
+    var newUrl = window.location.href
+    for(var key in queryDict) {
+      newUrl =  addOrReplace(newUrl, key, queryDict[key]);
+    }
+
+    if (history.pushState) {
+        window.history.pushState({path:newUrl},'',newUrl);
+    }
+
+    $.ajax({
+        type: "GET",
+        url: "/search-alternative/" + window.location.search,
+        success: function (data) {
+          $("#result-container").html(data);
+        },
+    });
+  }
+
+  function updateQueryDictMayBeTriggerSearch() {
+    var urlParams = new URLSearchParams(window.location.search);
+    queryDict["pet_num"] = urlParams.get("pet_num");
+    queryDict["pet_type"] = urlParams.get("pet_type");
+    queryDict["service_type"] = urlParams.get("service_type");
+    queryDict["zip_code"] = urlParams.get("zip_code");
+    queryDict["start_date"] = urlParams.get("start_date");
+    queryDict["end_date"] = urlParams.get("end_date");
+    queryDict["dog_size"] = urlParams.get("dog_size");
+    triggerSearch(queryDict)
+  }
+
+  function onPetTypeChanged(type, checked) {
+    petTypeDict[type] = checked;
+    queryDict["pet_type"] = "";
+    var keys = [];
+    for (var key in petTypeDict) {
+        if (petTypeDict[key]) {
+            keys.push(key);
+        }
+    }
+    queryDict["pet_type"] = keys.join(",");
+    triggerSearch(queryDict);
+  }
+
+  $(document).ready(function () {
+    $(".input-daterange").datepicker({
+        format: "mm/dd/yyyy",
+        startDate: "01/01/2019",
+        daysOfWeekHighlighted: "0,6",
+        autoclose: true,
+    });
+
+    updateQueryDictMayBeTriggerSearch()
+
+    $(".modal-close").click(function (e) {
+      e.preventDefault();
+      $("#modal").removeClass("is-active");
+    });
+
+    $(".dropdown .dropdown-menu .dropdown-item").on("click", function () {
+      var btnObj = $(this).parent().siblings("button");
+      var selectedText = $(this).text();
+      queryDict["service_type"] = selectedText.trim()
+      $(btnObj).text(selectedText);
+      var serviceTypeQuery = $(this).next().text();
+      queryDict["service_type"] = serviceTypeQuery;
+      triggerSearch(queryDict);
+    });
+
+    // Handle pet type check change
+    $("#chk-dog").click(function() {
+        onPetTypeChanged("dog", this.checked);
+    });
+
+    $("#chk-cat").click(function() {
+        onPetTypeChanged("cat", this.checked);
+    });
+
+    // Handle petnum radio check change
+    $("#btn-group-petnum .btn").on('click', function(e){
+        var petNumSelectedValue = $(this).find('input').val();
+        queryDict["pet_num"] = petNumSelectedValue;
+        triggerSearch(queryDict);
+    });
+
+    // Handle ZipCode change
+    $("#zip-code").on('input', function(e) {
+        var zipCodeInput = $(this).val();
+        console.log("Zip Code input: " + zipCodeInput);
+    });
+
+    var startDate;
+    var endDate;
+    $("#datepicker").datepicker().on("changeDate", function(e) {
+        if (e.target.name == "start") {
+            startDate = $(e.target).val()
+        } else {
+            endDate = $(e.target).val()
+        }
+        if (startDate != null && endDate != null) {
+            queryDict["start_date"] = startDate;
+            queryDict["end_date"] = endDate;
+            triggerSearch(queryDict);
+        }
+    });
+  });
+</script>
+{% endblock js_block %}
