@@ -100,8 +100,8 @@ class SearchProfileTests(TestCase):
         query = {
             'accept': 'json',
             'service_type': 'boarding',
-            'price_from': 0,
-            'price_to': 80
+            'min_price': 0,
+            'max_price': 80
         }
         res = self.client.get(SEARCH_PROFILE_URL, query)
         self.assertEqual(res.status_code, status.HTTP_200_OK)

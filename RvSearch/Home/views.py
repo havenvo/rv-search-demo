@@ -35,8 +35,8 @@ def search_alternative(request):
     if service_type:
         profiles = profiles.filter(service_rates__service_type__short_code=service_type)
 
-    price_from = request.GET.get('price_from', None)
-    price_to = request.GET.get('price_to', None)
+    price_from = request.GET.get('min_price', None)
+    price_to = request.GET.get('max_price', None)
     if price_from and price_to:
         profiles = profiles.filter(service_rates__price__gte=price_from, service_rates__price__lte=price_to)
 
