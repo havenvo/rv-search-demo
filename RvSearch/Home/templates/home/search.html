@@ -7,6 +7,7 @@
         integrity="sha512-mSYUmp1HYZDFaVKK//63EcZq4iFWFjxSL+Z3T/aCt4IO9Cejm03q3NKKYN6pFQzY0SBOr8h+eCIAZHPXcpZaNw=="
         crossorigin="anonymous"
 />
+<link rel="stylesheet" type="text/css" href="{% static 'Home/css/slider.css' %}">
 
 <section class="section bg-dark">
     <div class="container-fluid bg-light">
@@ -51,7 +52,7 @@
                     </div>
                 </div>
                 <div class="column">
-                    <h6 class="mt-3">Boarding near</h6>
+                    <h6 class="mt-4">Boarding near</h6>
                     <input id="zip-code"
                            type="text"
                            class="form-control"
@@ -59,7 +60,7 @@
                     />
                 </div>
                 <div class="column">
-                    <h6 class="mt-3">Dates</h6>
+                    <h6 class="mt-4">Dates</h6>
                     <div class="input-daterange input-group" id="datepicker">
                         <input type="text" class="input-sm form-control" name="start"/>
 
@@ -67,7 +68,7 @@
                     </div>
                 </div>
                 <div class="column">
-                    <h6 class="mt-3">Pet type(s)</h6>
+                    <h6 class="mt-4">Pet type(s)</h6>
                     <div class="row">
                         <div class="form-check ml-3">
                             <input type="checkbox" class="form-check-input" id="chk-dog"/>
@@ -80,7 +81,7 @@
                     </div>
                 </div>
                 <div class="column">
-                    <h6 class="mt-3">Dog size</h6>
+                    <h6 class="mt-4">Dog size</h6>
                     <div
                             class="btn-group btn-group-toggle d-flex justify-content-center"
                             data-toggle="buttons"
@@ -122,7 +123,7 @@
                 </div>
                 <div class="column">
                     <div>
-                        <h6 class="mt-3">How many pets?</h6>
+                        <h6 class="mt-4">How many pets?</h6>
                     </div>
                     <div id="btn-group-petnum" class="btn-group btn-group-toggle d-flex justify-content-center"
                          data-toggle="buttons">
@@ -154,6 +155,26 @@
                                     autocomplete="off"
                             />3+
                         </label>
+                    </div>
+                </div>
+                <div class="column">
+                    <h6 class="mt-4">Price per night?</h6>
+                    <div class="mt-3">
+                        <div class="px-5 d-flex flex-row justify-content-center align-items-center">
+                            <span id="slider-range-value1" style="min-width: 1.5em"></span>
+                            <div class="col-sm-12">
+                                <div id="slider-range"></div>
+                            </div>
+                            <span id="slider-range-value2" style="min-width: 1.5em"></span>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <form>
+                                    <input type="hidden" name="min-value" value="">
+                                    <input type="hidden" name="max-value" value="">
+                                </form>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div style="height: 250px;" class="column mt-3">More filters</div>
@@ -249,7 +270,7 @@
         <button class="modal-close is-large" aria-label="close"></button>
     </div>
 </section>
-{% endblock %}
+{% endblock content %}
 
 {% block js_block %}
 <script
@@ -257,6 +278,7 @@
         integrity="sha512-T/tUfKSV1bihCnd+MxKD0Hm1uBBroVYBOYSk1knyvQ9VyZJpc/ALb4P0r6ubwVPSGB2GvjeoMAJJImBG12TiaQ=="
         crossorigin="anonymous"
 ></script>
+<script src="{% static 'Home/js/slider.js' %}"></script>
 <script>
   var petTypeDict = {};
   var queryDict = {
@@ -268,6 +290,8 @@
     start_date: "",
     end_date: "",
     dog_size: "0-15",
+    min_price: 0,
+    max_price: 150,
   };
 
   function triggerSearch(queryDict) {
@@ -291,13 +315,15 @@
 
   function updateQueryDictMayBeTriggerSearch() {
     var urlParams = new URLSearchParams(window.location.search);
-    queryDict["pet_num"] = urlParams.get("pet_num");
+    queryDict["pet_num"] = urlParams.get("pet_num") || 1;
     queryDict["pet_type"] = urlParams.get("pet_type");
     queryDict["service_type"] = urlParams.get("service_type");
     queryDict["zip_code"] = urlParams.get("zip_code");
     queryDict["start_date"] = urlParams.get("start_date");
     queryDict["end_date"] = urlParams.get("end_date");
     queryDict["dog_size"] = urlParams.get("dog_size");
+    queryDict["min_price"] = urlParams.get("min_price") || 0;
+    queryDict["max_price"] = urlParams.get("max_price") || 150;
     triggerSearch(queryDict)
   }
 
@@ -375,6 +401,32 @@
             triggerSearch(queryDict);
         }
     });
+
+    var rangeSlider = document.getElementById('slider-range')
+    rangeSlider.noUiSlider.on('slide', function(e) {
+        if (!$._data(document, "events").mouseup) {
+            $(document).mouseup(function() {
+                $(document).unbind('mouseup');
+                var minPrice = $("#slider-range-value1").text();
+                var maxPrice = $("#slider-range-value2").text();
+                queryDict["min_price"] = parseInt(minPrice.substring(1));
+                queryDict["max_price"] = parseInt(maxPrice.substring(1));
+                triggerSearch(queryDict);
+            });
+        }
+    });
   });
+
+
+
+
+
+
+
+
+
+
+
+
 </script>
 {% endblock js_block %}
