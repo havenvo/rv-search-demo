@@ -124,7 +124,7 @@ STATICFILES_FINDERS = [
 ]
 
 # Django Sass
-SASS_PROCESSOR_ROOT = os.path.join(BASE_DIR,'static')
+SASS_PROCESSOR_ROOT = os.path.join(BASE_DIR, 'static')
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
@@ -136,3 +136,8 @@ AUTH_USER_MODEL = 'Core.User'
 
 DEFAULT_CURRENCY = os.environ.get('DEFAULT_CURRENCY', 'USD')
 DEFAULT_CURRENCY_CODE_LENGTH = 3
+
+try:
+    from .local_settings import *
+except ImportError as e:
+    pass
