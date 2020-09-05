@@ -160,3 +160,32 @@ class SearchProfileTests(TestCase):
         res = self.client.get(SEARCH_PROFILE_URL, query)
         self.assertContains(res, profile_dog.title)
         self.assertNotContains(res, profile_cat.title)
+
+    def test_filter_pet_num(self):
+        profile_1 = Profile.objects.create(
+            user=self.user,
+            first_name='A',
+            last_name='A',
+            title='A title',
+            description='A description',
+            address=self.address,
+            pet_num=1
+        )
+
+        profile_2 = Profile.objects.create(
+            user=self.another_user,
+            first_name='B',
+            last_name='B',
+            title='B title',
+            description='B description',
+            address=create_test_address(self.country),
+            pet_num=2
+        )
+
+        query = {
+            'pet_num': 2
+        }
+        res = self.client.get(SEARCH_PROFILE_URL, query)
+
+        self.assertContains(res, profile_2.title)
+        self.assertNotContains(res, profile_1.title)

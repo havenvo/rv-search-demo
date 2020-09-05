@@ -37,6 +37,10 @@ def search_alternative(request):
         pet_type_list = pet_type.split(',')
         profiles = profiles.filter(pet_types__short_code__in=pet_type_list).distinct()
 
+    pet_num = request.GET.get('pet_num', None)
+    if pet_num:
+        profiles = profiles.filter(pet_num__gte=pet_num)
+
     data = ProfileSerializer(profiles, many=True).data
     return render(request, 'Home/_search-result.html', {'profile_list': data})
 
