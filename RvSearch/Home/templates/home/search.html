@@ -71,7 +71,7 @@
                     <h6 class="mt-4">Pet type(s)</h6>
                     <div class="row">
                         <div class="form-check ml-3">
-                            <input type="checkbox" class="form-check-input" id="chk-dog"/>
+                            <input type="checkbox" class="form-check-input" id="chk-dog" checked/>
                             <label class="form-check-label" for="chk-dog">Dog</label>
                         </div>
                         <div class="form-check ml-3">
@@ -283,8 +283,8 @@
   var petTypeDict = {};
   var queryDict = {
     pet_num: 1,
-    pet_type: "",
-    service_type: "boarding",
+    pet_type: "dog",
+    service_type: "",
     zip_code: "",
     address: "",
     start_date: "",
@@ -316,7 +316,7 @@
   function updateQueryDictMayBeTriggerSearch() {
     var urlParams = new URLSearchParams(window.location.search);
     queryDict["pet_num"] = urlParams.get("pet_num") || 1;
-    queryDict["pet_type"] = urlParams.get("pet_type");
+    queryDict["pet_type"] = urlParams.get("pet_type") || "dog";
     queryDict["service_type"] = urlParams.get("service_type");
     queryDict["zip_code"] = urlParams.get("zip_code");
     queryDict["start_date"] = urlParams.get("start_date");
@@ -416,17 +416,5 @@
         }
     });
   });
-
-
-
-
-
-
-
-
-
-
-
-
 </script>
 {% endblock js_block %}
