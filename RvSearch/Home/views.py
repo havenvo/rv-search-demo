@@ -7,6 +7,14 @@ def home(request):
     return render(request, 'Home/home.html', {})
 
 
+def signup(request):
+    return render(request, 'Home/sign-up.html')
+
+
+def signin(request):
+    return render(request, 'Home/sign-in.html')
+
+
 def sitter_registration(request):
     return render(request, 'Home/sitter-registration.html')
 
