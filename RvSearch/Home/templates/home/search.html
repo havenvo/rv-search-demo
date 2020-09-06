@@ -80,7 +80,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="column">
+                <div class="dog-size-container column">
                     <h6 class="mt-4">Dog size</h6>
                     <div
                             class="btn-group btn-group-toggle d-flex justify-content-center"
@@ -292,6 +292,10 @@
     dog_size: "0-15",
     min_price: 0,
     max_price: 150,
+    max_long: 0,
+    max_lat: 0,
+    min_long: 0,
+    min_lat: 0,
   };
 
   function triggerSearch(queryDict) {
@@ -331,6 +335,8 @@
     if (queryDict["pet_type"].indexOf("dog") !== -1) {
         petTypeDict["dog"] = true;
         $("#chk-dog").attr('checked', 'checked');
+    } else {
+        petTypeDict["dog"] = false;
     }
     if (queryDict["pet_type"].indexOf("cat") !== -1) {
         $("#chk-cat").attr('checked', 'checked');
@@ -355,6 +361,11 @@
     queryDict["dog_size"] = urlParams.get("dog_size");
     queryDict["min_price"] = urlParams.get("min_price") || 0;
     queryDict["max_price"] = urlParams.get("max_price") || 150;
+    queryDict["max_long"] = urlParams.get("max_long") || 0;
+    queryDict["max_lat"] = urlParams.get("max_lat") || 0;
+    queryDict["min_long"] = urlParams.get("min_long") || 0;
+    queryDict["min_lat"] = urlParams.get("min_lat") || 0;
+
     updateSearchSelections();
     triggerSearch(queryDict);
   }
@@ -367,6 +378,11 @@
         if (petTypeDict[key]) {
             keys.push(key);
         }
+    }
+    if (petTypeDict["cat"] && !petTypeDict["dog"]) {
+        $(".dog-size-container").hide();
+    } else {
+        $(".dog-size-container").show();
     }
     queryDict["pet_type"] = keys.join(",");
     triggerSearch(queryDict);
@@ -448,9 +464,5 @@
         }
     });
   });
-
-
-
-
 </script>
 {% endblock js_block %}
