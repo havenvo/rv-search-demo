@@ -19,6 +19,7 @@ class ServiceRateSerializer(serializers.ModelSerializer):
 class ProfileSerializer(serializers.ModelSerializer):
     service_rates = ServiceRateSerializer(many=True)
     query_service_price = serializers.SerializerMethodField('get_query_service_price')
+    full_name = serializers.Field(source='full_name')
 
     def get_query_service_price(self, obj):
         service_type = self.context['service_type']
@@ -33,6 +34,7 @@ class ProfileSerializer(serializers.ModelSerializer):
             'service_rates',
             'first_name',
             'last_name',
+            'full_name',
             'title',
             'description',
             'reviews_count',

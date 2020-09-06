@@ -1,6 +1,7 @@
 from Core.models import Profile
 from Home.serializers import ProfileSerializer
 from django.shortcuts import render
+from django.shortcuts import get_object_or_404
 
 
 def home(request):
@@ -20,7 +21,10 @@ def sitter_registration(request):
 
 
 def profile_detail(request, pk):
-    return render(request, 'Home/profile_detail.html')
+    profile = get_object_or_404(Profile, pk=pk)
+    context = {}
+    context['profile'] = profile
+    return render(request, 'Home/profile_detail.html', context)
 
 
 def search(request):

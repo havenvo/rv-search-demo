@@ -1,6 +1,72 @@
 {% extends 'base.html' %}
 {% block content %}
-<div>
-    <h3>Profile detail page</h3>
-</div>
+<section class="container d-flex">
+    <div class="container d-flex py-4">
+        <div class="col-md-4 p-2" style="min-height: 300px;">
+            <img src="https://picsum.photos/300" alt="Profile Image" class="mx-auto rounded-circle img-fluid">
+        </div>
+        <div class="col-md-8 d-flex align-items-center p-2">
+            <div class="d-flex flex-column">
+                <div>
+                    <h2>{{ profile.full_name }}</h2>
+                </div>
+                <div class="d-flex-row py-2">
+                    <span>
+                        <i class="text-success far fa-comments"></i>
+                         Response Rate: <strong>100%</strong></span>
+                    <span class="ml-5">
+                        <i class="text-success far fa-clock"></i>
+                         Response time: <strong>a few mins</strong></span>
+                </div>
+                <div class="d-flex-row py-2">
+                    <button class="btn btn-secondary">Contact {{ profile.full_name }}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="container d-flex">
+    <div class="container d-flex">
+        <div class="col-md-4">Services</div>
+        <div class="col-md-8 d-flex align-items-center p-2">
+            <div class="d-flex flex-column pb-4">
+                <h4>Reviews</h4>
+                <div class="f-flex flex-column mt-4">
+                    <div class="review-container d-flex flex-column mb-2 pb-4 border-bottom">
+                        <div class="review-header d-flex">
+                            <div>
+                                <img style="min-width: 40px;" src="https://picsum.photos/40?i=1" alt="Profile Image"
+                                    class="mt-2 rounded-circle img-fluid">
+                            </div>
+                            <div class="ml-2 f-flex flex-column">
+                                <h5>Martin Philow</h5>
+                                <span>Sep 06, 2020</span>
+                            </div>
+                            <div class="ml-auto text-success"><strong>Verified</strong></div>
+                        </div>
+                        <div class="review-body">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Distinctio
+                            nihil nobis voluptas, nesciunt dolorem possimus sequi corrupti perspiciatis maxime eveniet.
+                        </div>
+                    </div>
+                    <div class="review-container d-flex flex-column">
+                        <div class="review-header d-flex">
+                            <div>
+                                <img style="min-width: 40px;" src="https://picsum.photos/40?=2" alt="Profile Image"
+                                    class="mt-2 rounded-circle img-fluid">
+                            </div>
+                            <div class="ml-2 f-flex flex-column">
+                                <h5>Peter Bence</h5>
+                                <span>Feb 13, 2020</span>
+                            </div>
+                        </div>
+                        <div class="review-body">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Labore esse
+                            quae, asperiores nesciunt aperiam sunt nobis id minus, cum corporis quaerat cupiditate quos
+                            accusantium magni consequuntur magnam sint in totam iusto consectetur voluptatum quisquam.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 {% endblock content %}

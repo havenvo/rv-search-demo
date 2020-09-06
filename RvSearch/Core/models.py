@@ -106,6 +106,10 @@ class Profile(models.Model):
     pet_types = models.ManyToManyField(PetType, blank=True, related_name='profiles')
     pet_num = models.SmallIntegerField(null=True, default=1)
 
+    @property
+    def full_name(self):
+        return '%s %s' % (self.first_name, self.last_name)
+
     def __str__(self):
         return '[%s %s] %s' % (self.first_name, self.last_name, self.title)
 
