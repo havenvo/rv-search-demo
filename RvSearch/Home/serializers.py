@@ -18,6 +18,13 @@ class ServiceRateSerializer(serializers.ModelSerializer):
 
 class ProfileSerializer(serializers.ModelSerializer):
     service_rates = ServiceRateSerializer(many=True)
+    query_service_price = serializers.SerializerMethodField('get_query_service_price')
+
+    def get_query_service_price(self, obj):
+        service_type = self.context['service_type']
+        if service_type is not None:
+            return obj.service_rates.filter(service_type__short_code=service_type)[:1].get().price
+        return 0
 
     class Meta:
         model = Profile
@@ -30,6 +37,7 @@ class ProfileSerializer(serializers.ModelSerializer):
             'description',
             'reviews_count',
             'rating_average',
-            'avatar'
+            'avatar',
+            'query_service_price'
         ]
         read_only_fields = ['id']

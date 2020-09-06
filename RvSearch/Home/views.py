@@ -38,7 +38,8 @@ def search_alternative(request):
     price_from = request.GET.get('min_price', None)
     price_to = request.GET.get('max_price', None)
     if price_from and price_to:
-        profiles = profiles.filter(service_rates__price__gte=price_from, service_rates__price__lte=price_to)
+        profiles = profiles.filter(service_rates__service_type__short_code=service_type,
+                                   service_rates__price__gte=price_from, service_rates__price__lte=price_to)
 
     pet_type = request.GET.get('pet_type', None)
     if pet_type:
@@ -49,7 +50,8 @@ def search_alternative(request):
     if pet_num:
         profiles = profiles.filter(pet_num__gte=pet_num)
 
-    data = ProfileSerializer(profiles, many=True).data
+    context = {"service_type": service_type}
+    data = ProfileSerializer(profiles, context=context, many=True).data
     return render(request, 'Home/_search-result.html', {'profile_list': data})
 
 
