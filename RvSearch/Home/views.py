@@ -22,16 +22,6 @@ def sitter_registration(request):
     return render(request, 'Home/sitter-registration.html')
 
 
-class ProfileDetail(APIView):
-    renderer_classes = [TemplateHTMLRenderer]
-    template_name = 'Home/profile_detail.html'
-
-    def get(self, request, pk):
-        profile = get_object_or_404(Profile, pk=pk)
-        serializer = ProfileSerializer(profile)
-        return Response({'serializer': serializer, 'profile': profile})
-
-
 def search(request):
     return render(request, 'Home/search.html', {'user_config': {'show_model': 'false'}})
 
@@ -64,5 +54,11 @@ def search_alternative(request):
     return render(request, 'Home/_search-result.html', {'profile_list': data})
 
 
-def test(request):
-    return render(request, 'Home/test.html', {})
+class ProfileDetail(APIView):
+    renderer_classes = [TemplateHTMLRenderer]
+    template_name = 'Home/profile_detail.html'
+
+    def get(self, request, pk):
+        profile = get_object_or_404(Profile, pk=pk)
+        serializer = ProfileSerializer(profile)
+        return Response({'serializer': serializer, 'profile': profile})
