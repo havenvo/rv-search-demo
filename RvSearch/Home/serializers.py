@@ -19,13 +19,20 @@ class ServiceRateSerializer(serializers.ModelSerializer):
 class ProfileSerializer(serializers.ModelSerializer):
     service_rates = ServiceRateSerializer(many=True)
     query_service_price = serializers.SerializerMethodField('get_query_service_price')
-    full_name = serializers.Field(source='full_name')
+    full_name = serializers.SerializerMethodField('get_full_name')
 
     def get_query_service_price(self, obj):
-        service_type = self.context['service_type']
-        if service_type is not None:
-            return obj.service_rates.filter(service_type__short_code=service_type)[:1].get().price
+        if self.context:
+            service_type = self.context['service_type']
+            if service_type is not None:
+                return obj.service_rates.filter(service_type__short_code=service_type)[:1].get().price
         return 0
+
+    def get_full_name(self, obj):
+        full_name = None
+        if obj.first_name or obj.last_name:
+            full_name = obj.first_name + " " + obj.last_name
+        return full_name
 
     class Meta:
         model = Profile

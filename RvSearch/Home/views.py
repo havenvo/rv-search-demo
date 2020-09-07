@@ -2,6 +2,8 @@ from Core.models import Profile
 from Home.serializers import ProfileSerializer
 from django.shortcuts import render
 from django.shortcuts import get_object_or_404
+from rest_framework.views import APIView, Response
+from rest_framework.renderers import TemplateHTMLRenderer
 
 
 def home(request):
@@ -20,11 +22,14 @@ def sitter_registration(request):
     return render(request, 'Home/sitter-registration.html')
 
 
-def profile_detail(request, pk):
-    profile = get_object_or_404(Profile, pk=pk)
-    context = {}
-    context['profile'] = profile
-    return render(request, 'Home/profile_detail.html', context)
+class ProfileDetail(APIView):
+    renderer_classes = [TemplateHTMLRenderer]
+    template_name = 'Home/profile_detail.html'
+
+    def get(self, request, pk):
+        profile = get_object_or_404(Profile, pk=pk)
+        serializer = ProfileSerializer(profile)
+        return Response({'serializer': serializer, 'profile': profile})
 
 
 def search(request):
