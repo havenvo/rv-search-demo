@@ -380,8 +380,8 @@
         var rangeSlider = document.getElementById('slider-range');
         rangeSlider.noUiSlider.on('slide', function (e) {
             if (!$._data(document, "events").mouseup) {
-                $(document).mouseup(function () {
-                    $(document).unbind('mouseup');
+                $(document).bind('mouseup touchend', function () {
+                    $(document).unbind('mouseup touchend');
                     var minPrice = $("#slider-range-value1").text();
                     var maxPrice = $("#slider-range-value2").text();
                     queryDict["min_price"] = parseInt(minPrice.substring(1));
@@ -391,8 +391,5 @@
             }
         });
     });
-
-
-
 </script>
 {% endblock js_block %}
