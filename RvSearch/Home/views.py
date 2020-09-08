@@ -7,23 +7,23 @@ from rest_framework.renderers import TemplateHTMLRenderer
 
 
 def home(request):
-    return render(request, 'Home/home.html', {})
+    return render(request, 'home/home.html', {})
 
 
 def signup(request):
-    return render(request, 'Home/sign-up.html')
+    return render(request, 'home/sign-up.html')
 
 
 def signin(request):
-    return render(request, 'Home/sign-in.html')
+    return render(request, 'home/sign-in.html')
 
 
 def sitter_registration(request):
-    return render(request, 'Home/sitter-registration.html')
+    return render(request, 'home/sitter-registration.html')
 
 
 def search(request):
-    return render(request, 'Home/search.html', {'user_config': {'show_model': 'false'}})
+    return render(request, 'home/search.html', {'user_config': {'show_model': 'false'}})
 
 
 def search_alternative(request):
@@ -51,12 +51,12 @@ def search_alternative(request):
 
     context = {"service_type": service_type}
     data = ProfileSerializer(profiles, context=context, many=True).data
-    return render(request, 'Home/_search-result.html', {'profile_list': data})
+    return render(request, 'home/_search-result.html', {'profile_list': data})
 
 
 class ProfileDetail(APIView):
     renderer_classes = [TemplateHTMLRenderer]
-    template_name = 'Home/profile_detail.html'
+    template_name = 'home/profile_detail.html'
 
     def get(self, request, pk):
         profile = get_object_or_404(Profile, pk=pk)
