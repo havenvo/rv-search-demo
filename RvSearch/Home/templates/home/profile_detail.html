@@ -1,22 +1,28 @@
 {% extends 'base.html' %}
 {% block content %}
 <section class="container d-flex">
-    <div class="container d-flex py-4">
-        <div class="col-md-4 p-2 text-center" style="min-height: 300px;">
-            <img src="https://picsum.photos/seed/{{ profile.id }}/300/" alt="Profile Image" class="mx-auto rounded-circle img-fluid">
+    <div class="container d-flex flex-row flex-wrap py-4">
+        <div class="col-xl-3 col-md-4 p-2 text-center" style="min-height: 300px;">
+            <img src="https://picsum.photos/seed/{{ profile.id }}/300/" alt="Profile Image"
+                 class="mx-auto rounded-circle img-fluid">
         </div>
-        <div class="col-md-8 d-flex align-items-center p-2">
+        <div class="col-xl-6 col-md-8 d-flex align-items-center">
             <div class="d-flex flex-column">
                 <div>
                     <h2>{{ profile.full_name }}</h2>
                 </div>
-                <div class="d-flex-row py-2">
-                    <span>
+                <div class="d-flex flex-row flex-wrap">
+                    <div class="p-2">
+                        <span>
                         <i class="text-success far fa-comments"></i>
                          Response Rate: <strong>100%</strong></span>
-                    <span class="ml-5">
-                        <i class="text-success far fa-clock"></i>
-                         Response time: <strong>a few mins</strong></span>
+                    </div>
+                    <div class="p-2">
+                        <span>
+                            <i class="text-success far fa-clock"></i>
+                             Response time: <strong>a few mins</strong>
+                        </span>
+                    </div>
                 </div>
                 <div class="d-flex-row py-2">
                     <button class="btn btn-secondary">Contact {{ profile.full_name }}</button>
@@ -25,21 +31,21 @@
         </div>
     </div>
 </section>
-<section class="container d-flex">
-    <div class="container d-flex">
-        <div class="col-md-4 align-items-center p-4">
+<section class="d-flex">
+    <div class="d-flex flex-row flex-wrap justify-content-center">
+        <div class="col-xl-3 col-xs-12 col-md-4 align-items-center p-4">
             <div class="service-card p-4 bg-light rounded">
                 {% for service in profile.service_rates.all %}
-                    <div class="d-flex py-2 align-items-center">
-                        <h6 class="m-0 p-0">{{ service.service_type.display_name }}</h6>
-                        <div class="d-flex flex-column ml-auto justify-content-center">
-                            <h4 class="m-0 p-0">${{ service.price }}</h4>
-                        </div>
+                <div class="d-flex py-2 align-items-center">
+                    <h6 class="m-0 p-0">{{ service.service_type.display_name }}</h6>
+                    <div class="d-flex flex-column ml-auto justify-content-center">
+                        <h4 class="m-0 p-0">${{ service.price }}</h4>
                     </div>
+                </div>
                 {% endfor %}
             </div>
         </div>
-        <div class="col-md-8 d-flex align-items-center p-4">
+        <div class="col-xl-6 col-md-8 d-flex align-items-center p-4">
             <div class="d-flex flex-column pb-4">
                 <h4>Reviews</h4>
                 <div class="f-flex flex-column mt-4">
@@ -47,7 +53,7 @@
                         <div class="review-header d-flex">
                             <div>
                                 <img style="min-width: 40px;" src="https://picsum.photos/40?i=1" alt="Profile Image"
-                                    class="mt-2 rounded-circle img-fluid">
+                                     class="mt-2 rounded-circle img-fluid">
                             </div>
                             <div class="ml-2 f-flex flex-column">
                                 <h5>Martin Philow</h5>
@@ -63,7 +69,7 @@
                         <div class="review-header d-flex">
                             <div>
                                 <img style="min-width: 40px;" src="https://picsum.photos/40?=2" alt="Profile Image"
-                                    class="mt-2 rounded-circle img-fluid">
+                                     class="mt-2 rounded-circle img-fluid">
                             </div>
                             <div class="ml-2 f-flex flex-column">
                                 <h5>Peter Bence</h5>
