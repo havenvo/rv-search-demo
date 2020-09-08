@@ -1,183 +1,132 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
-<link
-        rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css"
-        integrity="sha512-mSYUmp1HYZDFaVKK//63EcZq4iFWFjxSL+Z3T/aCt4IO9Cejm03q3NKKYN6pFQzY0SBOr8h+eCIAZHPXcpZaNw=="
-        crossorigin="anonymous"
-/>
-<link rel="stylesheet" type="text/css" href="{% static 'Home/css/slider.css' %}">
+<link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css"
+      integrity="sha512-mSYUmp1HYZDFaVKK//63EcZq4iFWFjxSL+Z3T/aCt4IO9Cejm03q3NKKYN6pFQzY0SBOr8h+eCIAZHPXcpZaNw=="
+      crossorigin="anonymous"/>
+<link rel="stylesheet" type="text/css" href="{% static 'home/css/slider.css' %}">
 
 <section class="section bg-dark">
     <div class="container-fluid bg-light">
         <div class="row">
             <div class="col-3 bg-white m-2">
-                <div>
+                <div class="d-flex flex-column sticky-top">
                     <div>
-                        <h6 class="mt-3">Service type</h6>
-                    </div>
-                    <div class="d-flex justify-content-center">
-                        <div class="dropdown">
-                            <button
-                                    class="btn btn-large btn-block btn-secondary dropdown-toggle"
-                                    type="button"
-                                    id="dropdownMenuButton"
-                                    data-toggle="dropdown"
-                                    aria-haspopup="true"
-                                    aria-expanded="true"
-                            >
-                                <i class="far fa-hand-spock"></i>
-                                Pick a service
-                            </button>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <a class="dropdown-item" href="#">
-                                    <i class="fas fa-truck-loading"></i>
-                                    Boarding</a>
-                                <div id="boarding" class="data" hidden>boarding</div>
-                                <a class="dropdown-item" href="#">
-                                    <i class="fas fa-home"></i>
-                                    House Sitting</a>
-                                <div id="house_sitting" class="data" hidden>house_sitting</div>
-                                <a class="dropdown-item" href="#">
-                                    <i class="fas fa-cookie-bite"></i>
-                                    Drop-In Visits</a>
-                                <div id="drop_in" class="data" hidden>drop_in</div>
-                                <a class="dropdown-item" href="#">
-                                    <i class="fas fa-walking"></i>
-                                    Dog Walking</a>
-                                <div id="dog_walking" class="data" hidden>dog_walking</div>
+                        <div>
+                            <h6 class="mt-3">Service type</h6>
+                        </div>
+                        <div class="d-flex justify-content-center">
+                            <div class="dropdown">
+                                <button class="btn btn-large btn-block btn-secondary dropdown-toggle" type="button"
+                                        id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+                                        aria-expanded="true">
+                                    <i class="far fa-hand-spock"></i>
+                                    Pick a service
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <a class="dropdown-item" href="#">
+                                        <i class="fas fa-truck-loading"></i>
+                                        Boarding</a>
+                                    <div id="boarding" class="data" hidden>boarding</div>
+                                    <a class="dropdown-item" href="#">
+                                        <i class="fas fa-home"></i>
+                                        House Sitting</a>
+                                    <div id="house_sitting" class="data" hidden>house_sitting</div>
+                                    <a class="dropdown-item" href="#">
+                                        <i class="fas fa-cookie-bite"></i>
+                                        Drop-In Visits</a>
+                                    <div id="drop_in" class="data" hidden>drop_in</div>
+                                    <a class="dropdown-item" href="#">
+                                        <i class="fas fa-walking"></i>
+                                        Dog Walking</a>
+                                    <div id="dog_walking" class="data" hidden>dog_walking</div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="column">
-                    <h6 class="mt-4">Boarding near</h6>
-                    <input id="zip-code"
-                           type="text"
-                           class="form-control"
-                           placeholder="Zip Code or Address"
-                    />
-                </div>
-                <div class="column">
-                    <h6 class="mt-4">Dates</h6>
-                    <div class="input-daterange input-group" id="datepicker">
-                        <input type="text" class="input-sm form-control" name="start"/>
+                    <div class="column">
+                        <h6 class="mt-4">Boarding near</h6>
+                        <input id="zip-code" type="text" class="form-control" placeholder="Zip Code or Address"/>
+                    </div>
+                    <div class="column">
+                        <h6 class="mt-4">Dates</h6>
+                        <div class="input-daterange input-group" id="datepicker">
+                            <input type="text" class="input-sm form-control" name="start"/>
 
-                        <input type="text" class="input-sm form-control" name="end"/>
-                    </div>
-                </div>
-                <div class="column">
-                    <h6 class="mt-4">Pet type(s)</h6>
-                    <div class="row">
-                        <div class="form-check ml-3">
-                            <input type="checkbox" class="form-check-input" id="chk-dog"/>
-                            <label class="form-check-label" for="chk-dog">Dog</label>
-                        </div>
-                        <div class="form-check ml-3">
-                            <input type="checkbox" class="form-check-input" id="chk-cat"/>
-                            <label class="form-check-label" for="chk-cat">Cat</label>
+                            <input type="text" class="input-sm form-control" name="end"/>
                         </div>
                     </div>
-                </div>
-                <div class="dog-size-container column">
-                    <h6 class="mt-4">Dog size</h6>
-                    <div
-                            class="btn-group btn-group-toggle d-flex justify-content-center"
-                            data-toggle="buttons"
-                    >
-                        <label class="form-control btn btn-secondary active">
-                            <input
-                                    type="checkbox"
-                                    name="options"
-                                    id="option1"
-                                    autocomplete="off"
-                            />0-15
-                        </label>
-                        <label class="form-control btn btn-secondary">
-                            <input
-                                    type="checkbox"
-                                    name="options"
-                                    id="option2"
-                                    autocomplete="off"
-                            />16-40
-                        </label>
-                        <label class="form-control btn btn-secondary">
-                            <input
-                                    type="checkbox"
-                                    name="options"
-                                    id="option3"
-                                    autocomplete="off"
-                            />41-100
-                        </label>
-                        <label class="form-control btn btn-secondary">
-                            <input
-                                    type="checkbox"
-                                    name="options"
-                                    id="option4"
-                                    autocomplete="off"
-                                    checked
-                            />101+
-                        </label>
-                    </div>
-                </div>
-                <div class="column">
-                    <div>
-                        <h6 class="mt-4">How many pets?</h6>
-                    </div>
-                    <div id="btn-group-petnum" class="btn-group btn-group-toggle d-flex justify-content-center"
-                         data-toggle="buttons">
-                        <label class="col-12 btn btn-secondary active">
-                            <input
-                                    value="1"
-                                    type="radio"
-                                    name="options"
-                                    id="petnum-op1"
-                                    autocomplete="off"
-                                    checked
-                            />1
-                        </label>
-                        <label class="col-12 btn btn-secondary">
-                            <input
-                                    value="2"
-                                    type="radio"
-                                    name="options"
-                                    id="petnum-op2"
-                                    autocomplete="off"
-                            />2
-                        </label>
-                        <label class="col-12 btn btn-secondary">
-                            <input
-                                    value="3"
-                                    type="radio"
-                                    name="options"
-                                    id="petnum-op3"
-                                    autocomplete="off"
-                            />3+
-                        </label>
-                    </div>
-                </div>
-                <div class="column">
-                    <h6 class="mt-4">Price per night?</h6>
-                    <div class="mt-3">
-                        <div class="px-5 d-flex flex-row justify-content-center align-items-center">
-                            <span id="slider-range-value1" style="min-width: 1.5em"></span>
-                            <div class="col-sm-12">
-                                <div id="slider-range"></div>
-                            </div>
-                            <span id="slider-range-value2" style="min-width: 1.5em"></span>
-                        </div>
+                    <div class="column">
+                        <h6 class="mt-4">Pet type(s)</h6>
                         <div class="row">
-                            <div class="col-sm-12">
-                                <form>
-                                    <input type="hidden" name="min-value" value="">
-                                    <input type="hidden" name="max-value" value="">
-                                </form>
+                            <div class="form-check ml-3">
+                                <input type="checkbox" class="form-check-input" id="chk-dog"/>
+                                <label class="form-check-label" for="chk-dog">Dog</label>
+                            </div>
+                            <div class="form-check ml-3">
+                                <input type="checkbox" class="form-check-input" id="chk-cat"/>
+                                <label class="form-check-label" for="chk-cat">Cat</label>
                             </div>
                         </div>
                     </div>
+                    <div class="dog-size-container column">
+                        <h6 class="mt-4">Dog size</h6>
+                        <div class="btn-group btn-group-toggle d-flex justify-content-center" data-toggle="buttons">
+                            <label class="form-control btn btn-secondary active">
+                                <input type="checkbox" name="options" id="option1" autocomplete="off"/>0-15
+                            </label>
+                            <label class="form-control btn btn-secondary">
+                                <input type="checkbox" name="options" id="option2" autocomplete="off"/>16-40
+                            </label>
+                            <label class="form-control btn btn-secondary">
+                                <input type="checkbox" name="options" id="option3" autocomplete="off"/>41-100
+                            </label>
+                            <label class="form-control btn btn-secondary">
+                                <input type="checkbox" name="options" id="option4" autocomplete="off" checked/>101+
+                            </label>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div>
+                            <h6 class="mt-4">How many pets?</h6>
+                        </div>
+                        <div id="btn-group-petnum" class="btn-group btn-group-toggle d-flex justify-content-center"
+                             data-toggle="buttons">
+                            <label class="col-12 btn btn-secondary active">
+                                <input value="1" type="radio" name="options" id="petnum-op1" autocomplete="off"
+                                       checked/>1
+                            </label>
+                            <label class="col-12 btn btn-secondary">
+                                <input value="2" type="radio" name="options" id="petnum-op2" autocomplete="off"/>2
+                            </label>
+                            <label class="col-12 btn btn-secondary">
+                                <input value="3" type="radio" name="options" id="petnum-op3" autocomplete="off"/>3+
+                            </label>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <h6 class="mt-4">Price per night?</h6>
+                        <div class="mt-3">
+                            <div class="px-5 d-flex flex-row justify-content-center align-items-center">
+                                <span id="slider-range-value1" style="min-width: 1.5em"></span>
+                                <div class="col-sm-12">
+                                    <div id="slider-range"></div>
+                                </div>
+                                <span id="slider-range-value2" style="min-width: 1.5em"></span>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <form>
+                                        <input type="hidden" name="min-value" value="">
+                                        <input type="hidden" name="max-value" value="">
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="height: 250px;" class="column mt-3">More filters</div>
                 </div>
-                <div style="height: 250px;" class="column mt-3">More filters</div>
             </div>
             <div class="col-5 bg-white my-2 px-2">
                 <div class="spinner-border text-secondary" role="status">
@@ -189,12 +138,9 @@
             </div>
 
             <div class="col mx-0 px-0 my-2">
-                <div>
-
+                <div class="sticky-top">
+                    <img src="{% static 'home/img/map-placeholder.png' %}" style="width: 100%;"></img>
                 </div>
-                <img style="width:100%; height:100%; object-fit:cover;"
-                     src="{% static 'home/img/map-placeholder.png' %}"
-                     alt="Map placeholder">
             </div>
         </div>
     </div>
@@ -205,10 +151,7 @@
                 <article class="media">
                     <div class="media-left">
                         <figure class="image is-64x64">
-                            <img
-                                    src="https://bulma.io/images/placeholders/128x128.png"
-                                    alt="Image"
-                            />
+                            <img src="https://bulma.io/images/placeholders/128x128.png" alt="Image"/>
                         </figure>
                     </div>
                     <div class="media-content">
@@ -225,44 +168,28 @@
                         <nav class="level is-mobile">
                             <div class="level-left">
                                 <a class="level-item" aria-label="retweet">
-                  <span class="icon is-small">
-                    <svg
-                            class="svg-inline--fa fa-retweet fa-w-20"
-                            aria-hidden="true"
-                            data-prefix="fas"
-                            data-icon="retweet"
-                            role="img"
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 640 512"
-                            data-fa-i2svg=""
-                    >
-                      <path
-                              fill="currentColor"
-                              d="M629.657 343.598L528.971 444.284c-9.373 9.372-24.568 9.372-33.941 0L394.343 343.598c-9.373-9.373-9.373-24.569 0-33.941l10.823-10.823c9.562-9.562 25.133-9.34 34.419.492L480 342.118V160H292.451a24.005 24.005 0 0 1-16.971-7.029l-16-16C244.361 121.851 255.069 96 276.451 96H520c13.255 0 24 10.745 24 24v222.118l40.416-42.792c9.285-9.831 24.856-10.054 34.419-.492l10.823 10.823c9.372 9.372 9.372 24.569-.001 33.941zm-265.138 15.431A23.999 23.999 0 0 0 347.548 352H160V169.881l40.416 42.792c9.286 9.831 24.856 10.054 34.419.491l10.822-10.822c9.373-9.373 9.373-24.569 0-33.941L144.971 67.716c-9.373-9.373-24.569-9.373-33.941 0L10.343 168.402c-9.373 9.373-9.373 24.569 0 33.941l10.822 10.822c9.562 9.562 25.133 9.34 34.419-.491L96 169.881V392c0 13.255 10.745 24 24 24h243.549c21.382 0 32.09-25.851 16.971-40.971l-16.001-16z"
-                      ></path>
-                    </svg>
-                      <!-- <i class="fas fa-retweet" aria-hidden="true"></i> -->
-                  </span>
+                                    <span class="icon is-small">
+                                        <svg class="svg-inline--fa fa-retweet fa-w-20" aria-hidden="true"
+                                             data-prefix="fas" data-icon="retweet" role="img"
+                                             xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512" data-fa-i2svg="">
+                                            <path fill="currentColor"
+                                                  d="M629.657 343.598L528.971 444.284c-9.373 9.372-24.568 9.372-33.941 0L394.343 343.598c-9.373-9.373-9.373-24.569 0-33.941l10.823-10.823c9.562-9.562 25.133-9.34 34.419.492L480 342.118V160H292.451a24.005 24.005 0 0 1-16.971-7.029l-16-16C244.361 121.851 255.069 96 276.451 96H520c13.255 0 24 10.745 24 24v222.118l40.416-42.792c9.285-9.831 24.856-10.054 34.419-.492l10.823 10.823c9.372 9.372 9.372 24.569-.001 33.941zm-265.138 15.431A23.999 23.999 0 0 0 347.548 352H160V169.881l40.416 42.792c9.286 9.831 24.856 10.054 34.419.491l10.822-10.822c9.373-9.373 9.373-24.569 0-33.941L144.971 67.716c-9.373-9.373-24.569-9.373-33.941 0L10.343 168.402c-9.373 9.373-9.373 24.569 0 33.941l10.822 10.822c9.562 9.562 25.133 9.34 34.419-.491L96 169.881V392c0 13.255 10.745 24 24 24h243.549c21.382 0 32.09-25.851 16.971-40.971l-16.001-16z">
+                                            </path>
+                                        </svg>
+                                        <!-- <i class="fas fa-retweet" aria-hidden="true"></i> -->
+                                    </span>
                                 </a>
                                 <a class="level-item" aria-label="like">
-                  <span class="icon is-small">
-                    <svg
-                            class="svg-inline--fa fa-heart fa-w-16"
-                            aria-hidden="true"
-                            data-prefix="fas"
-                            data-icon="heart"
-                            role="img"
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 512 512"
-                            data-fa-i2svg=""
-                    >
-                      <path
-                              fill="currentColor"
-                              d="M462.3 62.6C407.5 15.9 326 24.3 275.7 76.2L256 96.5l-19.7-20.3C186.1 24.3 104.5 15.9 49.7 62.6c-62.8 53.6-66.1 149.8-9.9 207.9l193.5 199.8c12.5 12.9 32.8 12.9 45.3 0l193.5-199.8c56.3-58.1 53-154.3-9.8-207.9z"
-                      ></path>
-                    </svg>
-                      <!-- <i class="fas fa-heart" aria-hidden="true"></i> -->
-                  </span>
+                                    <span class="icon is-small">
+                                        <svg class="svg-inline--fa fa-heart fa-w-16" aria-hidden="true"
+                                             data-prefix="fas" data-icon="heart" role="img"
+                                             xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg="">
+                                            <path fill="currentColor"
+                                                  d="M462.3 62.6C407.5 15.9 326 24.3 275.7 76.2L256 96.5l-19.7-20.3C186.1 24.3 104.5 15.9 49.7 62.6c-62.8 53.6-66.1 149.8-9.9 207.9l193.5 199.8c12.5 12.9 32.8 12.9 45.3 0l193.5-199.8c56.3-58.1 53-154.3-9.8-207.9z">
+                                            </path>
+                                        </svg>
+                                        <!-- <i class="fas fa-heart" aria-hidden="true"></i> -->
+                                    </span>
                                 </a>
                             </div>
                         </nav>
@@ -276,196 +203,197 @@
 {% endblock content %}
 
 {% block js_block %}
-<script
-        src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"
         integrity="sha512-T/tUfKSV1bihCnd+MxKD0Hm1uBBroVYBOYSk1knyvQ9VyZJpc/ALb4P0r6ubwVPSGB2GvjeoMAJJImBG12TiaQ=="
-        crossorigin="anonymous"
-></script>
+        crossorigin="anonymous"></script>
 <script src="{% static 'home/js/slider.js' %}"></script>
 <script>
-  var petTypeDict = {"dog": true};
-  var queryDict = {
-    pet_num: 1,
-    pet_type: "dog",
-    service_type: "",
-    zip_code: "",
-    address: "",
-    start_date: "",
-    end_date: "",
-    dog_size: "0-15",
-    min_price: 0,
-    max_price: 150,
-    max_long: 0,
-    max_lat: 0,
-    min_long: 0,
-    min_lat: 0,
-  };
+    var petTypeDict = { "dog": true };
+    var queryDict = {
+        pet_num: 1,
+        pet_type: "dog",
+        service_type: "",
+        zip_code: "",
+        address: "",
+        start_date: "",
+        end_date: "",
+        dog_size: "0-15",
+        min_price: 0,
+        max_price: 150,
+        max_long: 0,
+        max_lat: 0,
+        min_long: 0,
+        min_lat: 0,
+    };
 
-  function triggerSearch(queryDict) {
-    var newUrl = window.location.href
-    for(var key in queryDict) {
-      newUrl =  addOrReplace(newUrl, key, queryDict[key]);
-    }
-
-    if (history.pushState) {
-        window.history.pushState({path:newUrl},'',newUrl);
-    }
-
-    $.ajax({
-        type: "GET",
-        url: "/search-alternative/" + window.location.search,
-        success: function (data) {
-          $("#result-container").html(data);
-        },
-    });
-  }
-
-  // Update UI selection with data from queryDict
-  function updateSearchSelections() {
-    var rangeSlider = document.getElementById('slider-range');
-    rangeSlider.noUiSlider.set([queryDict["min_price"], queryDict["max_price"]]);
-    switch(queryDict["pet_num"]) {
-        case "1":
-            $("#petnum-op1").closest('.btn').button('toggle');
-            break;
-        case "2":
-            $("#petnum-op2").closest('.btn').button('toggle');
-            break;
-        case "3":
-            $("#petnum-op3").closest('.btn').button('toggle');
-            break;
-    }
-    if (queryDict["pet_type"].indexOf("dog") !== -1) {
-        petTypeDict["dog"] = true;
-        $("#chk-dog").attr('checked', 'checked');
-    } else {
-        petTypeDict["dog"] = false;
-    }
-    if (queryDict["pet_type"].indexOf("cat") !== -1) {
-        $("#chk-cat").attr('checked', 'checked');
-        petTypeDict["cat"] = true;
-    }
-    var serviceTypeDataElement = $("#" + queryDict["service_type"]);
-    if (serviceTypeDataElement !== undefined) {
-        var serviceText = serviceTypeDataElement.prev().text().trim();
-        var serviceTypeButton =serviceTypeDataElement.parent().siblings("button");
-        serviceTypeButton.text(serviceText);
-    }
-  }
-
-  function updateQueryDictMayBeTriggerSearch() {
-    var urlParams = new URLSearchParams(window.location.search);
-    queryDict["pet_num"] = urlParams.get("pet_num") || 1;
-    queryDict["pet_type"] = urlParams.get("pet_type") || "dog";
-    queryDict["service_type"] = urlParams.get("service_type");
-    queryDict["zip_code"] = urlParams.get("zip_code");
-    queryDict["start_date"] = urlParams.get("start_date");
-    queryDict["end_date"] = urlParams.get("end_date");
-    queryDict["dog_size"] = urlParams.get("dog_size");
-    queryDict["min_price"] = urlParams.get("min_price") || 0;
-    queryDict["max_price"] = urlParams.get("max_price") || 150;
-    queryDict["max_long"] = urlParams.get("max_long") || 0;
-    queryDict["max_lat"] = urlParams.get("max_lat") || 0;
-    queryDict["min_long"] = urlParams.get("min_long") || 0;
-    queryDict["min_lat"] = urlParams.get("min_lat") || 0;
-
-    updateSearchSelections();
-    triggerSearch(queryDict);
-  }
-
-  function onPetTypeChanged(type, checked) {
-    petTypeDict[type] = checked;
-    queryDict["pet_type"] = "";
-    var keys = [];
-    for (var key in petTypeDict) {
-        if (petTypeDict[key]) {
-            keys.push(key);
+    function triggerSearch(queryDict) {
+        var newUrl = window.location.href
+        for (var key in queryDict) {
+            newUrl = addOrReplace(newUrl, key, queryDict[key]);
         }
+
+        if (history.pushState) {
+            window.history.pushState({ path: newUrl }, '', newUrl);
+        }
+
+        $.ajax({
+            type: "GET",
+            url: "/search-alternative/" + window.location.search,
+            success: function (data) {
+                $("#result-container").html(data);
+            },
+        });
     }
-    if (petTypeDict["cat"] && !petTypeDict["dog"]) {
-        $(".dog-size-container").hide();
-    } else {
-        $(".dog-size-container").show();
-    }
-    queryDict["pet_type"] = keys.join(",");
-    triggerSearch(queryDict);
-  }
 
-  $(document).ready(function () {
-    $(".input-daterange").datepicker({
-        format: "mm/dd/yyyy",
-        startDate: "01/01/2019",
-        daysOfWeekHighlighted: "0,6",
-        autoclose: true,
-    });
-
-    updateQueryDictMayBeTriggerSearch()
-
-    $(".modal-close").click(function (e) {
-      e.preventDefault();
-      $("#modal").removeClass("is-active");
-    });
-
-    $(".dropdown .dropdown-menu .dropdown-item").on("click", function () {
-      var btnObj = $(this).parent().siblings("button");
-      var selectedText = $(this).text();
-      queryDict["service_type"] = selectedText.trim()
-      $(btnObj).text(selectedText);
-      var serviceTypeQuery = $(this).next().text();
-      queryDict["service_type"] = serviceTypeQuery;
-      triggerSearch(queryDict);
-    });
-
-    // Handle pet type check change
-    $("#chk-dog").click(function() {
-        onPetTypeChanged("dog", this.checked);
-    });
-
-    $("#chk-cat").click(function() {
-        onPetTypeChanged("cat", this.checked);
-    });
-
-    // Handle petnum radio check change
-    $("#btn-group-petnum .btn").on('click', function(e){
-        var petNumSelectedValue = $(this).find('input').val();
-        queryDict["pet_num"] = petNumSelectedValue;
-        triggerSearch(queryDict);
-    });
-
-    // Handle ZipCode change
-    $("#zip-code").on('input', function(e) {
-        var zipCodeInput = $(this).val();
-        console.log("Zip Code input: " + zipCodeInput);
-    });
-
-    var startDate;
-    var endDate;
-    $("#datepicker").datepicker().on("changeDate", function(e) {
-        if (e.target.name == "start") {
-            startDate = $(e.target).val()
+    // Update UI selection with data from queryDict
+    function updateSearchSelections() {
+        var rangeSlider = document.getElementById('slider-range');
+        rangeSlider.noUiSlider.set([queryDict["min_price"], queryDict["max_price"]]);
+        switch (queryDict["pet_num"]) {
+            case "1":
+                $("#petnum-op1").closest('.btn').button('toggle');
+                break;
+            case "2":
+                $("#petnum-op2").closest('.btn').button('toggle');
+                break;
+            case "3":
+                $("#petnum-op3").closest('.btn').button('toggle');
+                break;
+        }
+        if (queryDict["pet_type"].indexOf("dog") !== -1) {
+            petTypeDict["dog"] = true;
+            $("#chk-dog").attr('checked', 'checked');
         } else {
-            endDate = $(e.target).val()
+            petTypeDict["dog"] = false;
         }
-        if (startDate != null && endDate != null) {
-            queryDict["start_date"] = startDate;
-            queryDict["end_date"] = endDate;
+        if (queryDict["pet_type"].indexOf("cat") !== -1) {
+            $("#chk-cat").attr('checked', 'checked');
+            petTypeDict["cat"] = true;
+        }
+        var serviceTypeDataElement = $("#" + queryDict["service_type"]);
+        if (serviceTypeDataElement !== undefined) {
+            var serviceText = serviceTypeDataElement.prev().text().trim();
+            var serviceTypeButton = serviceTypeDataElement.parent().siblings("button");
+            serviceTypeButton.text(serviceText);
+        }
+    }
+
+    function updateQueryDictMayBeTriggerSearch() {
+        var urlParams = new URLSearchParams(window.location.search);
+        queryDict["pet_num"] = urlParams.get("pet_num") || 1;
+        queryDict["pet_type"] = urlParams.get("pet_type") || "dog";
+        queryDict["service_type"] = urlParams.get("service_type");
+        queryDict["zip_code"] = urlParams.get("zip_code");
+        queryDict["start_date"] = urlParams.get("start_date");
+        queryDict["end_date"] = urlParams.get("end_date");
+        queryDict["dog_size"] = urlParams.get("dog_size");
+        queryDict["min_price"] = urlParams.get("min_price") || 0;
+        queryDict["max_price"] = urlParams.get("max_price") || 150;
+        queryDict["max_long"] = urlParams.get("max_long") || 0;
+        queryDict["max_lat"] = urlParams.get("max_lat") || 0;
+        queryDict["min_long"] = urlParams.get("min_long") || 0;
+        queryDict["min_lat"] = urlParams.get("min_lat") || 0;
+
+        updateSearchSelections();
+        triggerSearch(queryDict);
+    }
+
+    function onPetTypeChanged(type, checked) {
+        petTypeDict[type] = checked;
+        queryDict["pet_type"] = "";
+        var keys = [];
+        for (var key in petTypeDict) {
+            if (petTypeDict[key]) {
+                keys.push(key);
+            }
+        }
+        if (petTypeDict["cat"] && !petTypeDict["dog"]) {
+            $(".dog-size-container").hide();
+        } else {
+            $(".dog-size-container").show();
+        }
+        queryDict["pet_type"] = keys.join(",");
+        triggerSearch(queryDict);
+    }
+
+    $(document).ready(function () {
+        $(".input-daterange").datepicker({
+            format: "mm/dd/yyyy",
+            startDate: "01/01/2019",
+            daysOfWeekHighlighted: "0,6",
+            autoclose: true,
+        });
+
+        updateQueryDictMayBeTriggerSearch()
+
+        $(".modal-close").click(function (e) {
+            e.preventDefault();
+            $("#modal").removeClass("is-active");
+        });
+
+        $(".dropdown .dropdown-menu .dropdown-item").on("click", function () {
+            var btnObj = $(this).parent().siblings("button");
+            var selectedText = $(this).text();
+            queryDict["service_type"] = selectedText.trim()
+            $(btnObj).text(selectedText);
+            var serviceTypeQuery = $(this).next().text();
+            queryDict["service_type"] = serviceTypeQuery;
             triggerSearch(queryDict);
-        }
+        });
+
+        // Handle pet type check change
+        $("#chk-dog").click(function () {
+            onPetTypeChanged("dog", this.checked);
+        });
+
+        $("#chk-cat").click(function () {
+            onPetTypeChanged("cat", this.checked);
+        });
+
+        // Handle petnum radio check change
+        $("#btn-group-petnum .btn").on('click', function (e) {
+            var petNumSelectedValue = $(this).find('input').val();
+            queryDict["pet_num"] = petNumSelectedValue;
+            triggerSearch(queryDict);
+        });
+
+        // Handle ZipCode change
+        $("#zip-code").on('input', function (e) {
+            var zipCodeInput = $(this).val();
+            console.log("Zip Code input: " + zipCodeInput);
+        });
+
+        var startDate;
+        var endDate;
+        $("#datepicker").datepicker().on("changeDate", function (e) {
+            if (e.target.name == "start") {
+                startDate = $(e.target).val()
+            } else {
+                endDate = $(e.target).val()
+            }
+            if (startDate != null && endDate != null) {
+                queryDict["start_date"] = startDate;
+                queryDict["end_date"] = endDate;
+                triggerSearch(queryDict);
+            }
+        });
+
+        var rangeSlider = document.getElementById('slider-range');
+        rangeSlider.noUiSlider.on('slide', function (e) {
+            if (!$._data(document, "events").mouseup) {
+                $(document).mouseup(function () {
+                    $(document).unbind('mouseup');
+                    var minPrice = $("#slider-range-value1").text();
+                    var maxPrice = $("#slider-range-value2").text();
+                    queryDict["min_price"] = parseInt(minPrice.substring(1));
+                    queryDict["max_price"] = parseInt(maxPrice.substring(1));
+                    triggerSearch(queryDict);
+                });
+            }
+        });
     });
 
-    var rangeSlider = document.getElementById('slider-range');
-    rangeSlider.noUiSlider.on('slide', function(e) {
-        if (!$._data(document, "events").mouseup) {
-            $(document).mouseup(function() {
-                $(document).unbind('mouseup');
-                var minPrice = $("#slider-range-value1").text();
-                var maxPrice = $("#slider-range-value2").text();
-                queryDict["min_price"] = parseInt(minPrice.substring(1));
-                queryDict["max_price"] = parseInt(maxPrice.substring(1));
-                triggerSearch(queryDict);
-            });
-        }
-    });
-  });
+
+
 </script>
 {% endblock js_block %}
