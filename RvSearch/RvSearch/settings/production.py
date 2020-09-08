@@ -1,8 +1,6 @@
 from .base import *
 from .base import env
 
-DEBUG = True
-
 SECRET_KEY = env("DJANGO_SECRET_KEY")
 EMAIL_HOST_USER = env("EMAIL_HOST_USER")
 EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD")
